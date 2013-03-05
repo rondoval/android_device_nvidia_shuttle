@@ -14,18 +14,20 @@
 # limitations under the License.
 #
 
-# This variable is set first, so it can be overridden
+# These two variables are set first, so they can be overridden
 # by BoardConfigVendor.mk
 BOARD_USES_GENERIC_AUDIO := true
 USE_CAMERA_STUB := false
 
-BOARD_USES_AUDIO_LEGACY := false
-TARGET_USES_OLD_LIBSENSORS_HAL := false
-
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR ?= device/nvidia/shuttle/bluetooth
+# Default values, possibly overridden by BoardConfigVendor.mk
+TARGET_BOARD_INFO_FILE := device/nvidia/shuttle/board-info.txt
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/nvidia/shuttle/bluetooth
 
 # Use the non-open-source parts, if they're present
 -include vendor/nvidia/shuttle/BoardConfigVendor.mk
+
+BOARD_USES_AUDIO_LEGACY := false
+TARGET_USES_OLD_LIBSENSORS_HAL := false
 
 #TARGET_NO_RECOVERY := true
 TARGET_NO_BOOTLOADER := true
@@ -56,13 +58,10 @@ TARGET_NO_RADIOIMAGE := true
 TARGET_BOARD_PLATFORM := tegra
 TARGET_TEGRA_VERSION := t25
 TARGET_BOOTLOADER_BOARD_NAME := shuttle
-#TARGET_BOARD_INFO_FILE := device/nvidia/shuttle/board-info.txt
 
 # Try to build the kernel
 TARGET_KERNEL_SOURCE := kernel/nvidia/shuttle
 TARGET_KERNEL_CONFIG := tegra_shuttle_defconfig
-# Lets try to use the linaro toolchain to see if that works
-#TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-linaro-4.7
 
 BOARD_EGL_CFG := device/nvidia/shuttle/files/egl.cfg
 
@@ -89,10 +88,8 @@ WPA_SUPPLICANT_VERSION      := VER_0_8_X
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_atheros
 BOARD_HOSTAPD_DRIVER        := AR6000
 BOARD_WLAN_DEVICE           := ar6002
-
 #BOARD_WLAN_ATHEROS_SDK      := device/nvidia/shuttle/AR6kSDK-CAF/AR6kSDK.2.2.1.151
 #WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/bcmdhd/parameters/firmware_path"
-
 WIFI_DRIVER_MODULE_PATH     := "/system/lib/hw/wlan/ar6000.ko"
 WIFI_DRIVER_MODULE_NAME		:= "ar6000"
 WIFI_DRIVER_MODULE_ARG		:= ""

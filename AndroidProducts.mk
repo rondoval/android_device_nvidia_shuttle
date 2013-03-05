@@ -14,7 +14,4 @@
 # limitations under the License.
 #
 
-PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/device.mk
-
-#    $(LOCAL_DIR)/full_shuttle.mk
+PRODUCT_MAKEFILES := $(LOCAL_DIR)/full_shuttle.mk

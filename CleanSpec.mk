@@ -1,4 +1,4 @@
-# Copyright (C) 2007 The Android Open Source Project
+# Copyright (C) 2012 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -47,5 +47,9 @@
 # ************************************************
 # NEWER CLEAN STEPS MUST BE AT THE END OF THE LIST
 # ************************************************
-$(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/default.prop)
-$(call add-clean-step, rm -rf $(PRODUCT_OUT)/obj/APPS/Phone_intermediates)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/obj/SHARED_LIBRARIES/libsurfaceflinger_intermediates)
+$(call add-clean-step, rm -rf $(PRODUCT_OUT)/obj/SHARED_LIBRARIES/libui_intermediates)
+$(call add-clean-step, rm -f $(PRODUCT_OUT)/root/default.prop)
+$(call add-clean-step, rm -f $(TARGET_OUT)/build.prop)
+$(call add-clean-step, rm -f $(PRODUCT_OUT)/system/etc/mixer_paths_lb.xml)
+$(call add-clean-step, rm -f $(PRODUCT_OUT)/system/etc/permissions/android.hardware.camera.xml)
