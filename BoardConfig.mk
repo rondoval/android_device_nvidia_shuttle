@@ -63,6 +63,13 @@ TARGET_BOOTLOADER_BOARD_NAME := shuttle
 TARGET_KERNEL_SOURCE := kernel/nvidia/shuttle
 TARGET_KERNEL_CONFIG := tegra_shuttle_defconfig
 
+WIFI_MODULES:
+	make -C device/nvidia/shuttle/wlan/AR6kSDK.2.2.1.151/ ANDROID_ENV=1 ANDROID=1 ATH_LINUXPATH=$(KERNEL_OUT) ATH_CROSS_COMPILE_TYPE=$(ARM_EABI_TOOLCHAIN)/arm-eabi-
+	mv device/nvidia/shuttle/wlan/AR6kSDK.2.2.1.151/host/.output/tegra-sdio/image/ar6000.ko $(ANDROID_PRODUCT_OUT)/system/lib/hw/wlan
+	arm-eabi-strip $(ANDROID_PRODUCT_OUT)/system/lib/hw/wlan/ar6000.ko
+
+TARGET_KERNEL_MODULES := WIFI_MODULES
+
 BOARD_EGL_CFG := device/nvidia/shuttle/files/egl.cfg
 
 BOARD_USES_OVERLAY := true
@@ -88,8 +95,6 @@ WPA_SUPPLICANT_VERSION      := VER_0_8_X
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_atheros
 BOARD_HOSTAPD_DRIVER        := AR6000
 BOARD_WLAN_DEVICE           := ar6002
-#BOARD_WLAN_ATHEROS_SDK      := device/nvidia/shuttle/AR6kSDK-CAF/AR6kSDK.2.2.1.151
-#WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/bcmdhd/parameters/firmware_path"
 WIFI_DRIVER_MODULE_PATH     := "/system/lib/hw/wlan/ar6000.ko"
 WIFI_DRIVER_MODULE_NAME		:= "ar6000"
 WIFI_DRIVER_MODULE_ARG		:= ""

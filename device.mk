@@ -21,9 +21,6 @@
 
 LOCAL_PATH := device/nvidia/shuttle
 
-#TARGET_KERNEL_SOURCE := $(LOCAL_PATH)/kernel
-#LOCAL_KERNEL := $(LOCAL_PATH)/kernel/zImage
-
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 #PRODUCT_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay/dictionaries
 
@@ -73,7 +70,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/files/ramdisk/ueventd.harmony.rc:root/ueventd.harmony.rc \
     $(LOCAL_PATH)/files/ramdisk/fstab.shuttle:root/fstab.shuttle
 
-#    $(LOCAL_KERNEL):kernel \
 # Backlight
 PRODUCT_PACKAGES += \
 	lights.shuttle
@@ -182,7 +178,6 @@ PRODUCT_COPY_FILES += \
 # Wifi
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/files/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
-	$(LOCAL_PATH)/wlan/ar6000.ko:system/lib/hw/wlan/ar6000.ko \
 	$(LOCAL_PATH)/wlan/athtcmd_ram.bin:system/lib/hw/wlan/athtcmd_ram.bin \
 	$(LOCAL_PATH)/wlan/athwlan.bin.z77:system/lib/hw/wlan/athwlan.bin.z77 \
 	$(LOCAL_PATH)/wlan/data.patch.hw2_0.bin:system/lib/hw/wlan/data.patch.hw2_0.bin \
@@ -220,13 +215,6 @@ PRODUCT_PACKAGES += \
 # Set default USB interface
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.sys.usb.config=mtp
-
-# NFC
-#PRODUCT_PACKAGES += \
-#        libnfc \
-#        libnfc_jni \
-#        Nfc \
-#        Tag
 
 # Live Wallpapers
 PRODUCT_PACKAGES += \
