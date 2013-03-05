@@ -63,9 +63,8 @@ static void sysfs_read(const char *path, char *s,int maxlen)
         strerror_r(errno, buf, sizeof(buf));
         ALOGE("Error reading from %s: %s\n", path, buf);
     }
-	
-	s[len]=0;
 
+    s[len]=0;
     close(fd);
 }
 
@@ -73,58 +72,45 @@ static void sysfs_read(const char *path, char *s,int maxlen)
 static char max_speed[64];
 static int last_on = -1;
 
+/* Setting names */
+static const char SYSFS_MAX_SPEED[] = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
+static const char SYSFS_MIN_SPEED[] = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq";
+
 static void shuttle_power_init(struct power_module *module)
 {
-	/* init the vatiables */
-	strcpy(max_speed,"1000000");
-	
-    /*
-     * cpufreq interactive governor: timer 20ms, min sample 100ms,
-     */
-
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/timer_rate",
-                "20000");
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/min_sample_time",
-                "30000");
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/go_maxspeed_load",
-                "85");
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/boost_factor",
-		"0");
+    /* init the vatiables */
+    strcpy(max_speed,"1000000");
 }
 
 static void shuttle_power_set_interactive(struct power_module *module, int on)
 {
-	/* Do not apply the same changes twice */
-	if (last_on == on)
-		return;
+    /* Do not apply the same changes twice */
+    if (last_on == on) {
+        return;
+    }
 
-	/* Save the original frequency if disabling screen */
-	if (!on) {
-		sysfs_read("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",
-                max_speed, sizeof(max_speed) - 1);
-	}
-		
-	/*
+    /* Save the original frequency if disabling screen */
+    if (!on) {
+        sysfs_read(SYSFS_MAX_SPEED, max_speed, sizeof(max_speed) - 1);
+    }
+
+    /*
      * Lower maximum frequency to minimum when screen is off.  CPU 0 and 1 share a
      * cpufreq policy.
      */
-    sysfs_write("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq",
-                on ? max_speed : "216000");
+    char min_speed[64];
+    sysfs_read(SYSFS_MIN_SPEED, min_speed, sizeof(min_speed) - 1);
+    sysfs_write(SYSFS_MAX_SPEED, on ? max_speed : min_speed);
 
-    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/boost_factor",
-                on ? "0" : "2");
+/*    sysfs_write("/sys/devices/system/cpu/cpufreq/interactive/boost_factor",
+                on ? "0" : "2"); */ /* pointless since min speed = max speed in standby */
 
 }
 
 static void shuttle_power_hint(struct power_module *module, power_hint_t hint,
                             void *data)
 {
-    switch (hint) {
-    case POWER_HINT_VSYNC:
-        break;
-    default:
-		break;
-    }
+    /* dummy */
 }
 
 static struct hw_module_methods_t power_module_methods = {

@@ -136,7 +136,11 @@ on boot
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq 216000
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq 1000000
     write /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor interactive
-    write /sys/devices/system/cpu/cpufreq/interactive/go_maxspeed_load 80
+
+    write /sys/devices/system/cpu/cpufreq/interactive/go_maxspeed_load 85
+    write /sys/devices/system/cpu/cpufreq/interactive/timer_rate 20000
+    write /sys/devices/system/cpu/cpufreq/interactive/min_sample_time 30000
+    write /sys/devices/system/cpu/cpufreq/interactive/boost_factor 0
     write /sys/module/cpuidle/parameters/lp2_in_idle 1
 
     chown system system /sys/devices/system/cpu/cpufreq/interactive/go_maxspeed_load

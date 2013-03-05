@@ -2,10 +2,6 @@
 L="log -p i -t postboot"
 $L "vega_postboot.sh started"
 ######################################################################
-#WLAN FIX
-echo 1 > /sys/devices/platform/shuttle-pm-wlan/keep_on_in_suspend
-
-######################################################################
 
 #######################################################################
 # Assign BT a proper unique mac address based off the wlan mac address# 
@@ -59,6 +55,4 @@ chown radio:system /system/etc/ppp/ip-up
 #Misc tunings
 
 #Add value to enable VM to have free ram to service apps
-
 sysctl -w vm.min_free_kbytes=16384
-
