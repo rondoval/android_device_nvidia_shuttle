@@ -21,7 +21,6 @@ USE_CAMERA_STUB := false
 
 # Default values, possibly overridden by BoardConfigVendor.mk
 TARGET_BOARD_INFO_FILE := device/nvidia/shuttle/board-info.txt
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/nvidia/shuttle/bluetooth
 
 # Use the non-open-source parts, if they're present
 -include vendor/nvidia/shuttle/BoardConfigVendor.mk
@@ -48,9 +47,7 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 
 #COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
 #Stock CMDLINE
-
-BOARD_KERNEL_CMDLINE := panic=10 mem=512M@0M nvmem=128M@512M vmalloc=256M video=tegrafb console=ttyS0,115200n8 usbcore.old_scheme_first=1 mtdparts=tegra_nand:2048K@6784K(misc),5120K@9344K(recovery),8192K@14976K(boot),451456K@23680K(system),32768K@475648K(cache),4096K@508928K(staging),10112K@513536K(userdata)
-
+BOARD_KERNEL_CMDLINE := panic=10 mem=512M@0M nvmem=128M@512M vmalloc=256M video=tegrafb console=ttyS0,115200n8 usbcore.old_scheme_first=1 mtdparts=tegra_nand:2048K@5248K(misc),7168K@7296K(recovery),8192K@14464K(boot),448512K@22656K(system),32768K@471168K(cache),4096K@503936K(staging),11136K@508032K(userdata)
 BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_PAGESIZE := 2048
 
@@ -66,7 +63,8 @@ TARGET_KERNEL_CONFIG := tegra_shuttle_defconfig
 WIFI_MODULES:
 	make -C device/nvidia/shuttle/wlan/AR6kSDK.2.2.1.151/ ANDROID_ENV=1 ANDROID=1 ATH_LINUXPATH=$(KERNEL_OUT) ATH_CROSS_COMPILE_TYPE=$(ARM_EABI_TOOLCHAIN)/arm-eabi-
 	mv device/nvidia/shuttle/wlan/AR6kSDK.2.2.1.151/host/.output/tegra-sdio/image/ar6000.ko $(ANDROID_PRODUCT_OUT)/system/lib/hw/wlan
-	arm-eabi-strip $(ANDROID_PRODUCT_OUT)/system/lib/hw/wlan/ar6000.ko
+# TODO: change kernel cfg
+#	arm-eabi-strip $(ANDROID_PRODUCT_OUT)/system/lib/hw/wlan/ar6000.ko
 
 TARGET_KERNEL_MODULES := WIFI_MODULES
 
@@ -82,10 +80,10 @@ TARGET_SCREEN_HEIGHT := 600
 TARGET_SCREEN_WIDTH := 1024
 
 
-BOARD_BOOTIMAGE_PARTITION_SIZE := 0x800000
-#BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x500000
-BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x1B8E0000
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x9E0000
+BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 7340032
+BOARD_SYSTEMIMAGE_PARTITION_SIZE := 459276288
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 15728640
 BOARD_FLASH_BLOCK_SIZE := 131072
 
 # Wifi related defines

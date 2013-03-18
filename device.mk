@@ -151,7 +151,6 @@ PRODUCT_PROPERTY_OVERRIDES := \
 PRODUCT_COPY_FILES += \
    $(LOCAL_PATH)/files/vold.fstab:system/etc/vold.fstab \
    $(LOCAL_PATH)/files/vega_postboot.sh:system/etc/vega_postboot.sh \
-   $(LOCAL_PATH)/files/setrecovery:system/bin/setrecovery \
    $(LOCAL_PATH)/files/recovery:system/bin/recovery \
    $(LOCAL_PATH)/files/flash_image:system/xbin/flash_image 
    
@@ -164,16 +163,13 @@ PRODUCT_PACKAGES += \
 
 # NVidia binary blobs
 $(call inherit-product, device/nvidia/shuttle/nvidia.mk)
-# Modules
-	
-# Bluetooth configuration files
-PRODUCT_COPY_FILES += \
-   $(LOCAL_PATH)/files/main.conf:system/etc/bluetooth/main.conf \
-   $(LOCAL_PATH)/files/bluecore6.psr:system/etc/bluez/bluecore6.psr \
-   $(LOCAL_PATH)/files/bluecore6.psr:system/etc/bluecore6.psr \
-   $(LOCAL_PATH)/files/hciattach:/system/bin/hciattach \
-   $(LOCAL_PATH)/files/bccmd:/system/bin/bccmd
 
+# Modules
+
+# Bluetooth
+PRODUCT_COPY_FILES += \
+   $(LOCAL_PATH)/files/etc/bluetooth/bluecore6.psr:system/etc/bluetooth/bluecore6.psr \
+   $(LOCAL_PATH)/files/etc/bluetooth/bt_vendor.conf:system/etc/bluetooth/bt_vendor.conf
 
 # Wifi
 PRODUCT_COPY_FILES += \
@@ -255,26 +251,14 @@ PRODUCT_PACKAGES += \
 	make_ext4fs \
 	setup_fs
 
-# Add prebuild apks and superuser
+# Add prebuild apks and setrecovery
 PRODUCT_PACKAGES += \
 	CameraGoogle \
 	ShuttleTools \
-	zRAMconfig
-
-
+	zRAMconfig \
+	setrecovery
 #	recovery-reboot 
-#  	openvpn \
-#	liblzo \
-#	Superuser \
-#       su \
-
-# for bugmailer
-#ifneq ($(TARGET_BUILD_VARIANT),user)
-#	PRODUCT_PACKAGES += send_bug
-#	PRODUCT_COPY_FILES += \
-#		system/extras/bugmailer/bugmailer.sh:system/bin/bugmailer.sh \
-#		system/extras/bugmailer/send_bug:system/bin/send_bug
-#endif
+#	atm
 
 $(call inherit-product, frameworks/native/build/tablet-dalvik-heap.mk)
 #$(call inherit-product, vendor/nvidia/shuttle/device-vendor.mk)
