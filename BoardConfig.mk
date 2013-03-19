@@ -47,7 +47,7 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 
 #COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
 #Stock CMDLINE
-BOARD_KERNEL_CMDLINE := panic=10 mem=512M@0M nvmem=128M@512M vmalloc=256M video=tegrafb console=ttyS0,115200n8 usbcore.old_scheme_first=1 mtdparts=tegra_nand:2048K@5248K(misc),7168K@7296K(recovery),8192K@14464K(boot),448512K@22656K(system),32768K@471168K(cache),4096K@503936K(staging),11136K@508032K(userdata)
+BOARD_KERNEL_CMDLINE := panic=10 mem=512M@0M nvmem=128M@512M vmalloc=256M video=tegrafb console=ttyS0,115200n8 usbcore.old_scheme_first=1 mtdparts=tegra_nand:2048K@6784K(misc),7168K@9344K(recovery),8192K@17024K(boot),448512K@25728K(system),32768K@474752K(cache),4096K@508032K(staging),11136K@512640K(userdata)
 BOARD_KERNEL_BASE := 0x10000000
 BOARD_KERNEL_PAGESIZE := 2048
 
