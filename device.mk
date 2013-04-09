@@ -25,8 +25,8 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 #PRODUCT_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay/dictionaries
 
 # uses mdpi artwork where available
-# PRODUCT_AAPT_CONFIG := normal mdpi
-# PRODUCT_AAPT_PREF_CONFIG := mdpi
+PRODUCT_AAPT_CONFIG := normal mdpi hdpi xhdpi
+PRODUCT_AAPT_PREF_CONFIG := mdpi
 # PRODUCT_LOCALES += mdpi
 
 # These are the hardware-specific feature permissions
